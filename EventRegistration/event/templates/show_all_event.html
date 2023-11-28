@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}All Event{% endblock title %}
+{% load static %}
+{% block join_css %}
+<link rel="stylesheet" href="{% static 'css/show_crud.css' %}">
+{% endblock join_css %}
+
+
+{% block body %}
+
+<div style="margin-bottom: 70px;">
+<h1 style="width:30%; margin:auto; margin-top: 10px; color: green;">
+  All Event
+</h1>
+
+<div style="margin-left: 50px; margin-top: 20px;">
+  <form method="get" action="#">
+    Priority:
+    <select name="priority">
+        <option value="" selected>All</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+    </select>
+  
+    Completion:
+    <select name="complete">
+        <option value="" selected>All</option>
+        <option value="True">Completed</option>
+        <option value="False">Incomplete</option>
+    </select>
+  
+    Due Date:
+    <input type="text" name="due_date" placeholder="Due date YYYY-MM-DD">
+  
+    Created At:
+    <input type="text" name="created_at" placeholder="Created date YYYY-MM-DD">
+  
+    <input type="submit" class="btn btn-primary" value="Filter">
+  </form>
+</div>
+
+
+  <table class="table table-success table-striped" style="width:95%; margin: auto; text-align: center; margin-top: 50px;">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Event Creator Name</th>
+        <th scope="col">Event Title</th>
+        <th scope="col">Event Data</th>
+        <th scope="col">Event Time</th>
+        <th scope="col">Total Seat</th>
+        <th scope="col">Details Event</th>
+        <th scope="col">Registration Event</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in all_events %}
+      <tr>      
+          <th scope="row">{{ event.id }}</th>
+          <td>{{ event.eventOwnerName }}</td>
+          <td>{{ event.eventTitle }}</td>
+          <td>{{ event.eventDate }}</td>
+          <td>{{ event.eventTime }}</td>
+          <td>{{ event.totalSeat }}</td>
+          <td><a href="{% url "event_details" event.id %}" class="btn btn-primary">MoreInfo</a></td>
+  
+          {% if event.totalSeat > 0 %}
+              <td><a href="{% url "event_register" event.id %}" class="btn btn-primary">Registration</a></td>
+          {% else %}
+              <td><a href="#" class="btn btn-primary" disabled>Registration</a></td>
+          {% endif %}
+  
+          {% if request.user == event.eventUser %}
+              <td><a href="{% url "update_event" event.id %}" class="btn btn-warning">Update</a></td>
+              <td><a href="{% url "delete_event" event.id %}" class="btn btn-danger">Delete</a></td>
+          {% endif %}
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

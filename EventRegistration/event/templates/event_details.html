@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Details of Event{% endblock title %}
+{% block body %}
+<div class='container'>
+    <ul class="list-group" style="width:30%; margin:auto; margin-top: 20px; margin-bottom: 10px;">
+        <li class="list-group-item active" aria-current="true"><b>Event ID :</b> {{event.id}}</li>
+        <li class="list-group-item active" aria-current="true"><b>Event User Name :</b> {{event.eventUser}}</li>
+        <li class="list-group-item"><b>Event Creator's Name :</b> {{event.eventOwnerName}}</li>
+        <li class="list-group-item"><b>Event Title :</b> {{event.eventTitle}}</li>
+        <li class="list-group-item"><b>Event Date :</b> {{event.eventDate}}</li>
+        <li class="list-group-item"><b>Event Time :</b> {{event.eventTime}}</li>
+        <li class="list-group-item"><b>Total Seat :</b> {{event.totalSeat}}</li>
+        <li class="list-group-item"><b>Avaiable Seat :</b> {{avaiable_seat}}</li>
+        <li class="list-group-item"><b>Event Location :</b> {{event.eventLocation}}</li>
+        <li class="list-group-item"><b>Description of event :</b> {{event.eventDescription}}</li>
+        <li class="list-group-item"><b>Event Create Date :</b> {{event.eventCreatedDate}}</li>
+        <li class="list-group-item"><b>Event Modify Date :</b> {{event.eventModifyDate}}</li>
+      </ul>
+
+    <table class="table table-success table-striped" style="width:95%; margin: auto; text-align: center; margin-top: 50px;">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile Number</th>
+            <th scope="col">Total Person</th>
+            <th scope="col">Details</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        
+    
+          </tr>
+        </thead>
+        <tbody> 
+        {% for gst in guests %}   
+          <tr>      
+            <th scope="row">{{gst.id}}</th>
+            <td> {{gst.firstName}} </td>
+            <td> {{gst.lastName}} </td>
+            <td> {{gst.email}} </td>
+            <td> {{gst.phoneNumber}} </td>
+            <td> {{gst.totalPerson}} </td>          
+              <td> <a href="{% url "guest_details" gst.id %}" class="btn btn-primary">Guest Details</a> </td>
+    
+            {% if gst.event.eventOwnerName %}
+              <td> <a href="{% url "update_event" gst.id %}" class="btn btn-warning">Update</a> </td>
+              <td> <a href="{% url "delete_guest" gst.id %}" class="btn btn-danger">Delete</a> </td>
+            {% elif gst. %}
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock body %}

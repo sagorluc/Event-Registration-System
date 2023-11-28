@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Details of Guest{% endblock title %}
+{% block body %}
+<div class='container' style="width:50%; margin:auto; margin-top: 20px; margin-bottom: 10px;">
+    <ul class="list-group">
+        <li class="list-group-item active" aria-current="true"><b>Guest ID :</b> {{guest.id}}</li>
+        <li class="list-group-item active" aria-current="true"><b>Guest Full Name : </b>{{guest.firstName}} {{guest.lastName}}</li>
+        <li class="list-group-item"><b>Guest Gmail :</b> {{guest.email}}</li>
+        <li class="list-group-item"><b>Guest Mobile Number :</b> {{guest.phoneNumber}}</li>
+        <li class="list-group-item"><b>Guest Total Person :</b> {{guest.totalPerson}}</li>
+        <li class="list-group-item"><b>Registration Date :</b> {{guest.createDate}}</li>
+        <li class="list-group-item"><b>Last Update :</b> {{guest.modifyDate}}</li>
+      </ul>
+</div>
+
+{% endblock body %}
