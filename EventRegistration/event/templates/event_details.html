@@ -26,14 +26,11 @@
             <th scope="col">Email</th>
             <th scope="col">Mobile Number</th>
             <th scope="col">Total Person</th>
-            <th scope="col">Details</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        
-    
+            <th scope="col">Details</th>   
           </tr>
         </thead>
         <tbody> 
+          
         {% for gst in guests %}   
           <tr>      
             <th scope="row">{{gst.id}}</th>
@@ -42,13 +39,8 @@
             <td> {{gst.email}} </td>
             <td> {{gst.phoneNumber}} </td>
             <td> {{gst.totalPerson}} </td>          
-              <td> <a href="{% url "guest_details" gst.id %}" class="btn btn-primary">Guest Details</a> </td>
-    
-            {% if gst.event.eventOwnerName %}
-              <td> <a href="{% url "update_event" gst.id %}" class="btn btn-warning">Update</a> </td>
-              <td> <a href="{% url "delete_guest" gst.id %}" class="btn btn-danger">Delete</a> </td>
-            {% elif gst. %}
-            {% endif %}
+            <td> <a href="{% url "guest_details" gst.id %}" class="btn btn-primary">Guest Details</a> </td>
+
           </tr>
         {% endfor %}
         </tbody>

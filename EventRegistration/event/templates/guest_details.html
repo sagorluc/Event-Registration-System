@@ -3,11 +3,16 @@
 {% block body %}
 <div class='container' style="width:50%; margin:auto; margin-top: 20px; margin-bottom: 10px;">
     <ul class="list-group">
-        <li class="list-group-item active" aria-current="true"><b>Guest ID :</b> {{guest.id}}</li>
+        <li class="list-group-item active" aria-current="true"><b>ID :</b> {{guest.id}}</li>
         <li class="list-group-item active" aria-current="true"><b>Guest Full Name : </b>{{guest.firstName}} {{guest.lastName}}</li>
         <li class="list-group-item"><b>Guest Gmail :</b> {{guest.email}}</li>
         <li class="list-group-item"><b>Guest Mobile Number :</b> {{guest.phoneNumber}}</li>
         <li class="list-group-item"><b>Guest Total Person :</b> {{guest.totalPerson}}</li>
+        <li class="list-group-item"><b>Owner Of Event :</b> {{guest.event.eventOwnerName}}</li>
+        <li class="list-group-item"><b>Event Name:</b> {{guest.event.eventTitle}}</li>
+        <li class="list-group-item"><b>Event Location :</b> {{guest.event.eventLocation}}</li>
+        <li class="list-group-item"><b>Event Date :</b> {{guest.event.eventDate}}</li>
+        <li class="list-group-item"><b>Event Time :</b> {{guest.event.eventTime}}</li>
         <li class="list-group-item"><b>Registration Date :</b> {{guest.createDate}}</li>
         <li class="list-group-item"><b>Last Update :</b> {{guest.modifyDate}}</li>
       </ul>

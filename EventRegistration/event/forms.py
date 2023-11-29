@@ -82,3 +82,10 @@ class EventRegistrationForm(forms.ModelForm):
         self.fields['phoneNumber'].widget.attrs['placeholder'] = 'Enter your mobile number'
         self.fields['totalPerson'].widget.attrs['placeholder'] = 'How many person you are?'
 
+    def clean_totalPerson(self):
+        input_person = self.cleaned_data['totalPerson']
+        
+        if input_person > 2:
+            raise forms.ValidationError('The person should not be more then 2.')
+        
+        return input_person

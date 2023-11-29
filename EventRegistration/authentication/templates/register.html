@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+  {% block title %}Registration{% endblock title %}
+  {% load crispy_forms_tags %}
+  {% block body %}
+
+<div style="width:50%; margin: auto;">
+    {% if forms.non_field_errors %} 
+    {% for error in forms.non_field_errors %}
+        <div
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"
+        role="alert">
+        <p class="block sm:inline">{{ error.password }}</p>
+        </div>
+    {% endfor %} 
+    {% endif %} 
+      
+    <h1 class="text-center" style="margin-top: 60px; font-size: 40px">Sign Up</h1>
+    
+    <form method= "POST" style="margin-bottom: 50px; margin-top: 50px;" novalidate>
+        {% csrf_token %}
+    
+        {{form|crispy}} 
+    
+        <input class="btn btn-primary" type="submit" value="Register"><br><br>
+        <a style="text-decoration: None;" href="{% url 'login' %}">Already have an account? click here</a>
+    </form>
+</div>
+  {% endblock body %}
