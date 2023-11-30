@@ -104,16 +104,17 @@ These Django Rest Framework views provide API endpoints for managing events and 
 ### API Endpoints
 
 ##### Event List and Create:
-* Use the /api/event_lc/ endpoint to retrieve a list of events or create a new event.
+* Use the /api/event_lc/ 
+* endpoint to retrieve a list of events or create a new event.
   
 ##### Event Retrieve, Update, and Delete:
-* Access details of a specific event or update/delete it using the /api/event_rud/<event_id>/ endpoint.
+* Access details of a specific event or update/delete it using the /api/event_rud/<event_id>/
   
 ##### Guest List and Create:
-* Retrieve a list of guest registrations for an event or register new guests using /api/guest_lc/<event_id>/.
+* Retrieve a list of guest registrations for an event or register new guests using /api/guest_lc/<event_id>/
   
 ##### Guest Retrieve, Update, and Delete:
-* Access details of a specific guest registration or update/delete it using /api/guest_rud/<guest_id>/.
+* Access details of a specific guest registration or update/delete it using /api/guest_rud/<guest_id>/
 
 ### Dependencies
 - Django
