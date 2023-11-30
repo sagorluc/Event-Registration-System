@@ -9,15 +9,6 @@
       
       <div style="width: 50%; margin: auto; margin-bottom: 100px;">
 
-    {% if form.non_field_errors %} 
-        {% for error in form.non_field_errors %}
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2" role="alert">
-                <p class="font-bold">Error!</p>
-                <p class="block sm:inline">{{ error }}</p>
-            </div>
-        {% endfor %} 
-     {% endif %} 
-
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="mb-3">

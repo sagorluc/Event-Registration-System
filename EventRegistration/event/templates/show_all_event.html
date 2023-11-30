@@ -22,26 +22,28 @@
         <th scope="col">Event Data</th>
         <th scope="col">Event Time</th>
         <th scope="col">Total Seat</th>
+        <th scope="col">Available Seat</th>
         <th scope="col">Details Event</th>
         <th scope="col">Registration Event</th>
 
       </tr>
     </thead>
     <tbody>
-      {% for event in all_events %}
+      {% for event_data in all_events %}
       <tr>      
-          <th scope="row">{{ event.id }}</th>
-          <td>{{ event.eventUser}}</td>
-          <td>{{ event.eventTitle }}</td>
-          <td>{{ event.eventDate }}</td>
-          <td>{{ event.eventTime }}</td>
-          <td>{{ event.totalSeat }}</td>
-          <td><a href="{% url "event_details" event.id %}" class="btn btn-primary">Event Details</a></td>
+          <th scope="row">{{ event_data.event.id }}</th>
+          <td>{{ event_data.event.eventUser}}</td>
+          <td>{{ event_data.event.eventTitle }}</td>
+          <td>{{ event_data.event.eventDate }}</td>
+          <td>{{ event_data.event.eventTime }}</td>
+          <td>{{ event_data.event.totalSeat }}</td>
+          <td>{{ event_data.available_seat }}</td>
+          <td><a href="{% url "event_details" event_data.event.id %}" class="btn btn-primary">Event Details</a></td>
   
-          {% if event.totalSeat > 0 %}
-              <td><a href="{% url "event_register" event.id %}" class="btn btn-primary">Registration</a></td>
+          {% if event_data.available_seat <= 0 %}
+              <td><button class="btn btn-primary" disabled>Registration</button></td>
           {% else %}
-              <td><a href="#" class="btn btn-primary" disabled>Registration</a></td>
+             <td><a href="{% url "event_register" event_data.event.id %}" class="btn btn-primary">Registration</a></td>             
           {% endif %}
       </tr>
   {% endfor %}

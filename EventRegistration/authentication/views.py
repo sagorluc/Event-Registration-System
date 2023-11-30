@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.forms import RegistrationFrom, LoginForm
 from django.contrib import messages
 
-
+# ============================= USER REGISTRATION ==============================
 def user_register(request):
     form = RegistrationFrom()
     if request.method == 'POST':
@@ -17,6 +17,8 @@ def user_register(request):
     return render(request, 'register.html', {'form': form})
 
 
+
+# ============================= USER LOGIN ======================================
 def log_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -34,6 +36,8 @@ def log_in(request):
             return redirect('login')             
     return render(request, 'login.html')
 
+
+# ============================= USER LOGOUT =================================
 @login_required
 def log_out(request):
         

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'event',
     'authentication',
+    'API',
     'crispy_forms',
     'crispy_bootstrap5',
 ]

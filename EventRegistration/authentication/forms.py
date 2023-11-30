@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 
+# ============================ USER REGISTRATION FORM ===============================
 class RegistrationFrom(UserCreationForm):
     class Meta:
         model = User
@@ -15,9 +16,7 @@ class RegistrationFrom(UserCreationForm):
         confirm_password = cleaned_data.get('password2')
 
         if password != confirm_password:
-            raise forms.ValidationError(
-                "Password does not match!"
-            )
+            raise forms.ValidationError("Password does not match!")
 
     def __init__(self, *args, **kwargs):
         super(RegistrationFrom, self).__init__(*args, **kwargs)
@@ -26,7 +25,8 @@ class RegistrationFrom(UserCreationForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last Name'
         self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
         
-        
+
+# ============================= USER LOGIN FORM =================================       
 class LoginForm(AuthenticationForm):
     class Meta:
         model  = User

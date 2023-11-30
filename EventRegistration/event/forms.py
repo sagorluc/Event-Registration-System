@@ -3,10 +3,12 @@ from django import forms
 from event.models import CreateEvent, EventRegistration
 from django.utils import timezone
 
+# ============================ CREATE EVENT FORM ====================================
 class CreateEventForm(forms.ModelForm):
     class  Meta:
         model = CreateEvent
         fields = ['eventOwnerName', 'eventTitle', 'eventDate', 'eventTime', 'totalSeat', 'eventLocation', 'eventDescription']
+        
         
         labels = {
             'eventOwnerName': 'Event Creator Name',
@@ -27,7 +29,7 @@ class CreateEventForm(forms.ModelForm):
     # set place holder by overriding    
     def __init__(self, *args, **kwargs):
         super(CreateEventForm, self).__init__(*args, **kwargs)
-        self.fields['eventOwnerName'].widget.attrs['placeholder'] = 'Enter your name'
+        self.fields['eventOwnerName'].widget.attrs['placeholder'] = 'Enter academic name'
         self.fields['eventTitle'].widget.attrs['placeholder'] = 'Enter the event title'
         self.fields['eventDate'].widget.attrs['placeholder'] = 'Select the event date'
         self.fields['eventTime'].widget.attrs['placeholder'] = 'Select the event time'
@@ -54,11 +56,15 @@ class CreateEventForm(forms.ModelForm):
     
     def clean_totalSeat(self):
         input_seat = self.cleaned_data['totalSeat']
+        
         if input_seat > 50:
             raise forms.ValidationError("Total seat can not be take more the 50.")
+        elif input_seat < 0:
+            raise forms.ValidationError('The seat can not be negative!')
+        
         return input_seat
 
-
+# ======================== EVENT REGISTRATION FORM =================================
 class EventRegistrationForm(forms.ModelForm):
     class Meta:
         model = EventRegistration

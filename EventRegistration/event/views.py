@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from event.forms import CreateEventForm, EventRegistrationForm
 from event.models import CreateEvent, EventRegistration
 from django.http import HttpResponse
@@ -12,11 +13,23 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def all_event(request):
    all_events = CreateEvent.objects.all()
-           
-   context = {
-        'all_events': all_events,
+   
+   event_data = []
+   for event in all_events:
+        guests = EventRegistration.objects.filter(event=event)
+        total_person = sum(guest.totalPerson for guest in guests)
+        available_seat = event.totalSeat - total_person
 
-    }   
+        event_data.append({
+            'event': event,
+            'available_seat': available_seat,
+        })
+   # print(event_data)
+
+   context = {
+        'all_events': event_data,
+    }
+
    return render(request, 'show_all_event.html', context)
 
 # ============================= CREATE EVENT ==================================
@@ -39,14 +52,25 @@ def event_registration(request, id):
     event = CreateEvent.objects.get(pk=id)
     user = request.user
     
+    # not allow to registration more then one event
     is_registered = EventRegistration.objects.filter(userE=request.user, event=event).first()
-
     if is_registered:
-        return HttpResponse('You already registered this event')
+        return render(request, 'error_page.html', {'event': event})
    
     if request.method == 'POST':
         form = EventRegistrationForm(request.POST)
         if form.is_valid():
+            
+            # check if the user put more then the available seat 
+            input_seat = form.cleaned_data['totalPerson']
+            guests = EventRegistration.objects.filter(event= event)  
+            total_person = sum(guest.totalPerson for guest in guests)   
+            total_seat = event.totalSeat           
+            if total_person <= total_seat:
+                available_seat = total_seat - total_person               
+                if input_seat > available_seat:
+                    return render(request, 'not_seat_available.html')
+            
             registration = form.save(commit=False) # not saveing immediately bcz of want to to manipulate the data
             registration.userE = user  # current user put in the event registration user
             registration.event = event # event put under evet registration 
@@ -70,17 +94,18 @@ def event_details(request, id=None):
     # totalGuest = len(guest)
 
     if total_person <= total_seat:
-        avaiable_seat = total_seat - total_person
-    
+        available_seat = total_seat - total_person
+            
     context =  {
         
         'event': event, 
         'guests': guests,
-        'avaiable_seat' : avaiable_seat,
+        'available_seat' : available_seat,
         
         }
-
+        
     return render(request, 'event_details.html', context)
+
 
 
 # ============================= GUEST DETAILS ==================================
@@ -153,7 +178,7 @@ def delete_event(request, id=None):
 
     if request.method == 'POST':
         event.delete()
-        return redirect('home')
+        return redirect('dashboard')
 
     return render(request, 'delete_event.html', {'event': event})
 
@@ -238,8 +263,8 @@ def filter_event(request):
     input_event_date = request.GET.get('eventDate')
     input_event_location = request.GET.get('location')
     
-    events = CreateEvent.objects.all()
-    guests = EventRegistration.objects.all()
+    events = CreateEvent.objects.filter(eventUser= request.user)
+    guests = EventRegistration.objects.filter(userE= request.user)
     
     if input_event_date:
         events = events.filter(Q(eventDate=input_event_date))
@@ -251,3 +276,18 @@ def filter_event(request):
         
     return render(request, 'dashboard.html', {'events' : events, 'guests' : guests})
 
+
+# =========================== COMMON DATA =============================
+# def get_common_data(event, guests):
+#     total_person = sum(guest.totalPerson for guest in guests)
+#     total_seat = event.totalSeat
+
+#     common_data = {
+#         'event': event,
+#         'guests': guests,
+#     }
+
+#     if total_person <= total_seat:
+#         common_data['available_seat'] = total_seat - total_person
+
+#     return common_data
