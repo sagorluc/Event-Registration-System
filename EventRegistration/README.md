@@ -16,9 +16,9 @@ The EventRegistrationForm class handles the registration process for events. Use
 
 * Show All Events (all_event): Displays all events, including details such as available seats.
 
-* Create Event (create_event): Allows users to create new events. Validates input data and saves the event details.
+* Create Event (create_event): Allows users to create new events. Validates input data and the maximum attendence allow 50 person and save the event details. 
 
-* Event Registration (event_registration): Handles user registration for a specific event. Validates input data, checks available seats, and saves the registration details.
+* Event Registration (event_registration): Handles user registration for a specific event. Validates input data, checks available seats, and if the current user already registered one time then that user not able to access registration for second time in that event.also if the event already fillup with the full of attendence then the ragistration button would be disabled.
 
 * Event Details (event_details): Displays details of a specific event, including registered guests and available seats.
 
@@ -42,17 +42,17 @@ The EventRegistrationForm class handles the registration process for events. Use
 
 * Create Event: Navigate to the "Create Event" page, fill in the required details, and submit the form.
 
-* Register for an Event: Visit the event details page and register for the event by providing your information.
+* Register for an Event: Visit the all event page and click registration button for the event by providing your information.
 
 * View Event Details: Explore details of each event, including registered guests and available seats.
 
-* Update Event: Modify event details by navigating to the event details page and selecting the "Update Event" option.
+* Update Event: Modify event details by navigating to the dashboard page and click the "Update" button.
 
-* Update Guest Registration: Change the number of attendees for a guest by selecting the "Update Guest" option.
+* Update Guest Registration: Change the number of attendees and firstname, lasname, email for a guest by selecting the "Update" button.
 
-* Delete Event: Remove an event by selecting the "Delete Event" option on the event details page.
+* Delete Event: Remove an event by selecting the "Delete" button on the dashboard page.
 
-* Delete Guest Registration: Remove a guest's registration by selecting the "Delete Guest" option.
+* Delete Guest Registration: Remove a guest's registration by selecting the "Delete" button.
 
 * Dashboard: Access an overview of events created and guest registrations.
 
